@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wonderful_ties/models/user_manager.dart';
 import 'package:wonderful_ties/screens/login/login_screen.dart';
 import 'package:wonderful_ties/screens/signup/signup_screen.dart';
+import 'package:wonderful_ties/models/product_manager.dart';
 
 import 'screens/base/base_screen.dart';
 
@@ -16,9 +16,17 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => UserManager(),
-      lazy: false,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => UserManager(),
+          lazy: false,
+        ),
+        Provider(
+          create: (_) => ProductManager(),
+          lazy: false,
+        )
+      ],
       child: MaterialApp(
         title: 'Laços da Cris',
         theme: ThemeData(
