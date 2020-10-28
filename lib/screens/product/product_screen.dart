@@ -1,6 +1,8 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wonderful_ties/models/product.dart';
+import 'package:wonderful_ties/models/user_manager.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen(this.product);
@@ -32,7 +34,7 @@ class ProductScreen extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget> [
                   Text(
                     product.name,
@@ -75,6 +77,32 @@ class ProductScreen extends StatelessWidget {
                       fontSize: 16
                     ),
                   ),
+                  const SizedBox(height: 20,),
+                  if(product.hasStock)
+                    Consumer<UserManager>(
+                        builder: (_, userManager, __){
+                          return SizedBox(
+                            height: 44,
+                            child: RaisedButton(
+                              onPressed: () {
+                                if(userManager.isLoggedIn){
+
+                                } else {
+                                  Navigator.of(context).pushNamed('/login');
+                                }
+                              },
+                              color: primaryColor,
+                              textColor: Colors.blue,
+                              child: Text(
+                                userManager.isLoggedIn
+                                    ? 'Adicionar ao Carrinho'
+                                    : 'Entre para Comprar',
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                            ),
+                          );
+                        }
+                    )
                 ],
               ),
           )
