@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wonderful_ties/models/cart_manager.dart';
 import 'package:wonderful_ties/models/user_manager.dart';
 import 'package:wonderful_ties/screens/login/login_screen.dart';
 import 'package:wonderful_ties/screens/product/product_screen.dart';
@@ -26,6 +27,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ProductManager(),
+          lazy: false,
+        ),
+        Provider(
+          create: (_) => CartManager(),
           lazy: false,
         )
       ],

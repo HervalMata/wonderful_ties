@@ -1,6 +1,7 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wonderful_ties/models/cart_manager.dart';
 import 'package:wonderful_ties/models/product.dart';
 import 'package:wonderful_ties/models/user_manager.dart';
 
@@ -86,7 +87,7 @@ class ProductScreen extends StatelessWidget {
                             child: RaisedButton(
                               onPressed: () {
                                 if(userManager.isLoggedIn){
-
+                                    context.read<CartManager>().addToCart(product);
                                 } else {
                                   Navigator.of(context).pushNamed('/login');
                                 }
