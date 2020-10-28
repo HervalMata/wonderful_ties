@@ -32,4 +32,12 @@ class CartProduct {
   bool stackable(Product product){
     return product.id == productId;
   }
+
+  void increment(){
+    quantity++;
+  }
+
+  void decrement(){
+    quantity--;
+  }
 }
