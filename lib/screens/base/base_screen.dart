@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:wonderful_ties/common/custom_drawer/custom_drawer.dart';
 import 'package:wonderful_ties/models/page_manager.dart';
-import 'package:wonderful_ties/screens/login/login_screen.dart';
+import 'package:wonderful_ties/screens/products/products_screen.dart';
 
 class BaseScreen extends StatelessWidget {
   final PageController pageController = PageController();
@@ -22,12 +21,13 @@ class BaseScreen extends StatelessWidget {
           title: const Text('Home'),
         )
     ),
-          Scaffold(
+          ProductsScreen(),
+          /*Scaffold(
           drawer: CustomDrawer(),
           appBar: AppBar(
             title: const Text('Home2'),
         )
-      ),
+      ),*/
           Scaffold(
              drawer: CustomDrawer(),
              appBar: AppBar(
