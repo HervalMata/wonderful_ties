@@ -8,7 +8,14 @@ class CartManager {
   List<CartProduct> items = [];
   User user;
   void addToCart(Product product){
-    items.add(CartProduct.fromProduct(product));
+    try {
+      final e = items.firstWhere((p) => p.stackable(product));
+      e.quantity++;
+    } catch (e) {
+      final cartProduct = CartProduct.fromProduct(product);
+      items.add(cartProduct);
+      user.cartReference.add(cartProduct.toCartItemMap());
+    }
   }
 
   void updateUser(UserManager userManager) {

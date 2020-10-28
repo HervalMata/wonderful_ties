@@ -21,4 +21,15 @@ class CartProduct {
   String productId;
   int quantity;
   Product product;
+
+  Map<String, dynamic> toCartItemMap() {
+    return {
+      'pid': productId,
+      'quantity': quantity,
+    };
+  }
+
+  bool stackable(Product product){
+    return product.id == productId;
+  }
 }
