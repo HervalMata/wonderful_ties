@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wonderful_ties/common/custom_drawer/custom_icon_button.dart';
+import 'file:///D:/Projetos/wonderful_ties/lib/common/custom_icon_button.dart';
 import 'package:wonderful_ties/models/cart_product.dart';
 
 class CartTile extends StatelessWidget {

@@ -43,7 +43,7 @@ class CartManager extends ChangeNotifier {
       productsPrice += cartProduct.totalPrice;
       _updateCartProduct(cartProduct);
     }
-    print(productsPrice);
+    notifyListeners();
   }
 
   void updateUser(UserManager userManager) {
