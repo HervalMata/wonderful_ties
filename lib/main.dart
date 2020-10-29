@@ -5,6 +5,7 @@ import 'package:wonderful_ties/models/cart_manager.dart';
 import 'package:wonderful_ties/models/home_manager.dart';
 import 'package:wonderful_ties/models/user_manager.dart';
 import 'package:wonderful_ties/screens/cart/cart_screen.dart';
+import 'package:wonderful_ties/screens/edit_product/edit_product_screen.dart';
 import 'package:wonderful_ties/screens/login/login_screen.dart';
 import 'package:wonderful_ties/screens/product/product_screen.dart';
 import 'package:wonderful_ties/screens/signup/signup_screen.dart';
@@ -77,6 +78,10 @@ class MyApp extends StatelessWidget {
             case '/cart':
               return MaterialPageRoute(
                   builder: (_) => CartScreen()
+              );
+            case '/edit-product':
+              return MaterialPageRoute(
+                  builder: (_) => EditProductScreen()
               );
             case '/base':
             default:
