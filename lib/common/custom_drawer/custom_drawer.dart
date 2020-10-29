@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'file:///D:/Projetos/wonderful_ties/lib/common/drawer_tile.dart';
 import 'package:wonderful_ties/common/custom_drawer/custom_drawer_header.dart';
+import 'package:wonderful_ties/common/custom_drawer/drawer_tile.dart';
+import 'package:wonderful_ties/models/user_manager.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -33,7 +36,33 @@ class CustomDrawer extends StatelessWidget {
                 iconData: Icons.playlist_add_check,
                 title: 'Meus Pedidos',
                 page: 2),
-            DrawerTile(iconData: Icons.location_on, title: 'Lojas', page: 3),
+            DrawerTile(
+                iconData: Icons.location_on,
+                title: 'Lojas', page: 3
+            ),
+            Consumer<UserManager>(
+                builder: (_, userManager, __){
+                  if(userManager.adminEnabled){
+                    return Column(
+                      children: <Widget> [
+                        const Divider(),
+                        DrawerTile(
+                          iconData: Icons.settings,
+                          title: 'Usuários',
+                          page: 4,
+                        ),
+                        DrawerTile(
+                          iconData: Icons.settings,
+                          title: 'Pedidos',
+                          page: 5,
+                        ),
+                      ],
+                    );
+                    } else {
+                    return Container();
+                  }
+                },
+            )
           ],
         ),
       ],
