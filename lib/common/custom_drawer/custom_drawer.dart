@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'file:///D:/Projetos/wonderful_ties/lib/common/drawer_tile.dart';
 import 'package:wonderful_ties/common/custom_drawer/custom_drawer_header.dart';
 import 'package:wonderful_ties/common/custom_drawer/drawer_tile.dart';
 import 'package:wonderful_ties/models/user_manager.dart';
