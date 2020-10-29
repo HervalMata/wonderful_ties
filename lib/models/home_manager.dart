@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:wonderful_ties/models/section.dart';
 
-class HomeManager {
+class HomeManager extends ChangeNotifier {
   List<Section> sections = [];
 
   HomeManager(){
@@ -16,7 +17,7 @@ class HomeManager {
       for(final DocumentSnapshot document in snapshot.documents){
         sections.add(Section.fromDocument(document));
       }
-      print(sections);
+      notifyListeners();
     });
   }
 

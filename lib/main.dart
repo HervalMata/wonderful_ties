@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           update: (_, userManager, cartManager) =>
               cartManager..updateUser(userManager),
         ),
-        Provider(
+        ChangeNotifierProvider(
           create: (_) => HomeManager(),
           lazy: false,
         ),
