@@ -5,15 +5,18 @@ import 'package:wonderful_ties/screens/edit_product/components/images_form.dart'
 
 class EditProductScreen extends StatelessWidget{
   final Product product;
+  final bool editing;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  EditProductScreen(this.product);
+  EditProductScreen(Product p) :
+        editing = p != null,
+        product = p != null ? p.clone() : Product();
 
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Anuncio'),
+        title: Text(editing ? 'Editar Anuncio' : 'Criar Anuncio'),
         centerTitle: true,
       ),
       body: Form(
@@ -83,14 +86,24 @@ class EditProductScreen extends StatelessWidget{
                         return null;
                       },
                     ),
-                    RaisedButton(
-                      onPressed: (){
-                        if(formKey.currentState.validate()){
-                          print('válido!!!');
-                        }
-                      },
-                      child: const Text('Salvar'),
-                    ),
+                    const SizedBox(height: 20,),
+                    SizedBox(
+                      height: 44,
+                      child: RaisedButton(
+                        onPressed: (){
+                          if(formKey.currentState.validate()){
+                            print('válido!!!');
+                          }
+                        },
+                        textColor: Colors.white,
+                        color: primaryColor,
+                        disabledColor: primaryColor.withAlpha(100),
+                        child: const Text(
+                            'Salvar',
+                          style: TextStyle(fontSize: 10.0),
+                        ),
+                      ),
+                    )
                   ],
                 ),
             )
