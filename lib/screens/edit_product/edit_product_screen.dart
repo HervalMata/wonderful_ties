@@ -16,7 +16,7 @@ class EditProductScreen extends StatelessWidget{
     final primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
       appBar: AppBar(
-        title: Text(editing ? 'Editar Anuncio' : 'Criar Anuncio'),
+        title: Text(editing ? 'Editar Produto' : 'Criar Produto'),
         centerTitle: true,
       ),
       body: Form(
@@ -43,6 +43,7 @@ class EditProductScreen extends StatelessWidget{
                         if(name.length < 6) return 'Titulo muito curto';
                         return null;
                       },
+                      onSaved: (name) => product.name = name,
                     ),
                     Padding(
                         padding: const EdgeInsets.only(top: 4),
@@ -85,6 +86,7 @@ class EditProductScreen extends StatelessWidget{
                         if(desc.length < 10) return 'Descrição muito curta';
                         return null;
                       },
+                      onSaved: (desc) => product.description = desc,
                     ),
                     const SizedBox(height: 20,),
                     SizedBox(
@@ -92,6 +94,7 @@ class EditProductScreen extends StatelessWidget{
                       child: RaisedButton(
                         onPressed: (){
                           if(formKey.currentState.validate()){
+                            print(product);
                             print('válido!!!');
                           }
                         },

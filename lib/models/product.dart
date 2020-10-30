@@ -21,6 +21,7 @@ class Product extends ChangeNotifier {
   num price;
   int stock;
   List<String> images;
+  List<dynamic> newImages;
 
   Product clone() {
     return Product(
@@ -31,4 +32,9 @@ class Product extends ChangeNotifier {
   }
 
   bool get hasStock => stock > 0;
+
+  @override
+  String toString() {
+    return 'Product{id: $id, name: $name, description: $description, price: $price, stock: $stock, images: $images, newImages: $newImages}';
+  }
 }
