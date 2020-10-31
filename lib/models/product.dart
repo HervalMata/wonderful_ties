@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class Product extends ChangeNotifier {
   Product({this.id, this.name, this.description, this.images}){
@@ -16,7 +21,9 @@ class Product extends ChangeNotifier {
   }
 
   final Firestore firestore = Firestore.instance;
+  final FirebaseStorage storage = FirebaseStorage.instance;
   DocumentReference get firestoreRef => firestore.document('products/$id');
+  StorageReference get storageRef => storage.ref().child('products').child(id);
 
   String id;
   String name;
@@ -47,7 +54,22 @@ class Product extends ChangeNotifier {
     } else {
       await firestoreRef.updateData(data);
     }
+
+    final List<String> updateImages = [];
+
+    for(final newImage in newImages){
+      if(images.contains(newImage)){
+        updateImages.add(newImage as String);
+      } else {
+        final StorageUploadTask task = storageRef.child(Uuid().v1()).putFile(newImage as File);
+        final StorageTaskSnapshot snapshot = await task.onComplete;
+        final String url = await snapshot.ref.getDownloadURL() as String;
+        updateImages.add(url);
+      }
+    }
   }
+  
+
 
   bool get hasStock => stock > 0;
 
