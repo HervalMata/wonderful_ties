@@ -10,6 +10,7 @@ class SectionHeader extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final homeManager = context.watch<HomeManager>();
+    final section = context.watch<Section>();
     if(homeManager.editing){
       return Row(
         children: <Widget> [
