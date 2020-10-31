@@ -6,6 +6,8 @@ import 'package:wonderful_ties/models/user_manager.dart';
 import 'package:wonderful_ties/screens/home/components/section_list.dart';
 import 'package:wonderful_ties/screens/home/components/section_staggered.dart';
 
+import 'components/add_section_widget.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -87,6 +89,7 @@ class HomeScreen extends StatelessWidget {
                       }
                     }
                 ).toList();
+                if(homeManager.editing) children.add(AddSectionWidget(homeManager));
                 return SliverList(
                     delegate: SliverChildListDelegate(children),
                 );
