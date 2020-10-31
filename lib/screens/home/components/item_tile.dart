@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wonderful_ties/models/home_manager.dart';
+import 'package:wonderful_ties/models/product.dart';
 import 'package:wonderful_ties/models/product_manager.dart';
 import 'package:wonderful_ties/models/section.dart';
 import 'package:wonderful_ties/models/section_item.dart';
@@ -29,8 +30,17 @@ class ItemTile extends StatelessWidget{
         showDialog(
             context: context,
             builder: (_) {
+              final product = context.read<ProductManager>()
+                      .findProductById(item.product);
               return AlertDialog(
                 title: const Text('Editar Item'),
+                content: product != null
+                        ? ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: Image.network(product.images.first),
+                            title: Text(product.name),
+                            subtitle: Text('R\$ ${product.price.toStringAsFixed(2)}'),
+                ) : null,
                 actions: <Widget> [
                   FlatButton(
                       onPressed: (){
@@ -39,6 +49,20 @@ class ItemTile extends StatelessWidget{
                       },
                       textColor: Colors.red,
                       child: const Text('Excluir'),
+                  ),
+                  FlatButton(
+                      onPressed: () async {
+                        if(product != null){
+                          item.product = null;
+                        } else {
+                          final Product product = await Navigator.of(context)
+                              .pushNamed('/select_product') as Product;
+                        }
+                        Navigator.of(context).pop();
+                      }, 
+                      child: Text(
+                        product != null ? 'Desvincular' : 'Vincular'
+                      ),
                   ),
                 ],
               );

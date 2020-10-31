@@ -8,6 +8,7 @@ import 'package:wonderful_ties/screens/cart/cart_screen.dart';
 import 'package:wonderful_ties/screens/edit_product/edit_product_screen.dart';
 import 'package:wonderful_ties/screens/login/login_screen.dart';
 import 'package:wonderful_ties/screens/product/product_screen.dart';
+import 'package:wonderful_ties/screens/select_product/select_product_screen.dart';
 import 'package:wonderful_ties/screens/signup/signup_screen.dart';
 import 'package:wonderful_ties/models/product_manager.dart';
 
@@ -84,6 +85,10 @@ class MyApp extends StatelessWidget {
                   builder: (_) => EditProductScreen(
                     settings.arguments as Product
                   )
+              );
+            case '/select_product':
+              return MaterialPageRoute(
+                  builder: (_) => SelectProductScreen()
               );
             case '/base':
             default:
