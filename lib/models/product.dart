@@ -15,6 +15,9 @@ class Product extends ChangeNotifier {
     images = List<String>.from(document.data['images'] as List<dynamic>);
   }
 
+  final Firestore firestore = Firestore.instance;
+  DocumentReference get firestoreRef => firestore.document('products/$id');
+
   String id;
   String name;
   String description;
@@ -29,6 +32,21 @@ class Product extends ChangeNotifier {
       description: description,
       images: List.from(images),
     );
+  }
+
+  Future<void> save() async {
+    final Map<String, dynamic> data = {
+      'name': name,
+      'description': description,
+      'price': price,
+      'stock': stock,
+    };
+    if(id == null){
+      final doc = await firestore.collection('products').add(data);
+      id = doc.documentID;
+    } else {
+      await firestoreRef.updateData(data);
+    }
   }
 
   bool get hasStock => stock > 0;
