@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wonderful_ties/models/section.dart';
 
 class HomeManager extends ChangeNotifier {
-  List<Section> _sections = [];
+  final List<Section> _sections = [];
   List<Section> _editingSections = [];
 
   bool editing = false;
@@ -36,8 +36,13 @@ class HomeManager extends ChangeNotifier {
   }
 
   void saveEditing(){
-    editing = false;
-    notifyListeners();
+    bool valid = true;
+    for(final section in _editingSections){
+      if(!section.valid()) valid = false;
+    }
+    if(!valid) return;
+    /*editing = false;
+    notifyListeners();*/
   }
 
   void addSection(Section section){

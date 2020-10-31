@@ -7,6 +7,14 @@ class Section extends ChangeNotifier {
   String type;
   List<SectionItem> items;
 
+  String _error;
+  String get error => _error;
+
+  set error(String value){
+    _error = value;
+    notifyListeners();
+  }
+
   Section({this.name, this.type, this.items}){
     items = items ?? [];
   }
@@ -39,5 +47,15 @@ class Section extends ChangeNotifier {
       type: type,
       items: items.map((e) => e.clone()).toList(),
     );
+  }
+
+  bool valid() {
+    if(name == null || name.isEmpty){
+      error = 'Titulo inválido';
+    } else if(items.isEmpty) {
+      error = 'Insira ao menos uma imagem';
+    } else {
+      return error == null;
+    }
   }
 }
