@@ -5,6 +5,8 @@ import 'package:wonderful_ties/models/section.dart';
 class HomeManager extends ChangeNotifier {
   List<Section> sections = [];
 
+  bool editing = false;
+
   HomeManager(){
     _loadSections();
   }
@@ -19,6 +21,21 @@ class HomeManager extends ChangeNotifier {
       }
       notifyListeners();
     });
+  }
+
+  void enterEditing(){
+    editing = true;
+    notifyListeners();
+  }
+
+  void saveEditing(){
+    editing = false;
+    notifyListeners();
+  }
+
+  void discardEditing(){
+    editing = false;
+    notifyListeners();
   }
 
 }
