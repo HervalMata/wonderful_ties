@@ -11,6 +11,7 @@ class AddressInputField extends StatelessWidget{
     final primaryColor = Theme.of(context).primaryColor;
     String emptyValidator(String text) =>
          text.isEmpty ? 'Campo obrigatório' : null;
+    if(address.zipCode != null)
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget> [
@@ -121,6 +122,8 @@ class AddressInputField extends StatelessWidget{
         ),
       ],
     );
+    else
+      return Container();
   }
 
 }

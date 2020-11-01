@@ -1,14 +1,19 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wonderful_ties/common/custom_icon_button.dart';
+import 'package:wonderful_ties/models/address.dart';
 import 'package:wonderful_ties/models/cart_manager.dart';
 import 'package:provider/provider.dart';
 
 class CepInputField extends StatelessWidget{
+  final Address address;
   final TextEditingController cepController = TextEditingController();
+  CepInputField(this.address);
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
+    if(address.zipCode != null)
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget> [
@@ -40,8 +45,33 @@ class CepInputField extends StatelessWidget{
             color: primaryColor,
             disabledColor: primaryColor.withAlpha(100),
             child: const Text('Buscar CEP'),
-        )
+        ),
       ],
     );
+    else
+      return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Row(
+            children: <Widget> [
+              Expanded(
+                  child: Text(
+                    'CEP: ${address.zipCode}',
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+              ),
+              CustomIconButton(
+                iconData: Icons.edit,
+                color: primaryColor,
+                size: 20,
+                onTap: (){
+                  context.read<CartManager>().removeAddress();
+                },
+              ),
+            ],
+          ),
+      );
   }
 }
