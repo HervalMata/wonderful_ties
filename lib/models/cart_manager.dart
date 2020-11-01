@@ -4,6 +4,7 @@ import 'package:wonderful_ties/models/cart_product.dart';
 import 'package:wonderful_ties/models/product.dart';
 import 'package:wonderful_ties/models/user.dart';
 import 'package:wonderful_ties/models/user_manager.dart';
+import 'package:wonderful_ties/services/cepaberto_service.dart';
 
 class CartManager extends ChangeNotifier {
   List<CartProduct> items = [];
@@ -70,5 +71,15 @@ class CartManager extends ChangeNotifier {
       if(!cartProduct.hasStock) return false;
     }
     return true;
+  }
+
+  Future<void> getAddress(String cep) async {
+    final cepAbertoService = CepAbertoService();
+    try{
+      final address = await cepAbertoService.getAddressFromCep(cep);
+      print(address);
+    } catch(e) {
+      debugPrint(e.toString());
+    }
   }
 }
