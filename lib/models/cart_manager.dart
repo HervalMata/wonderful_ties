@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:wonderful_ties/models/address.dart';
 import 'package:wonderful_ties/models/cart_product.dart';
 import 'package:wonderful_ties/models/product.dart';
 import 'package:wonderful_ties/models/user.dart';
@@ -9,6 +10,7 @@ import 'package:wonderful_ties/services/cepaberto_service.dart';
 class CartManager extends ChangeNotifier {
   List<CartProduct> items = [];
   User user;
+  Address address;
   num productsPrice = 0.0;
   void addToCart(Product product){
     try {
@@ -76,8 +78,19 @@ class CartManager extends ChangeNotifier {
   Future<void> getAddress(String cep) async {
     final cepAbertoService = CepAbertoService();
     try{
-      final address = await cepAbertoService.getAddressFromCep(cep);
-      print(address);
+      final cepAbertoAddress = await cepAbertoService.getAddressFromCep(cep);
+      if(cepAbertoAddress != null){
+        address = Address(
+          street: cepAbertoAddress.logradouro,
+          district: cepAbertoAddress.bairro,
+          zipCode: cepAbertoAddress.cep,
+          city: cepAbertoAddress.cidade.nome,
+          state: cepAbertoAddress.estado.sigla,
+          lat: cepAbertoAddress.latitude,
+          long: cepAbertoAddress.longitude
+        );
+        notifyListeners();
+      }
     } catch(e) {
       debugPrint(e.toString());
     }
