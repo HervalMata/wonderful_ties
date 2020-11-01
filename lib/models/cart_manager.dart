@@ -84,6 +84,7 @@ class CartManager extends ChangeNotifier {
   }
 
   Future<void> getAddress(String cep) async {
+    loading = true;
     final cepAbertoService = CepAbertoService();
     try{
       final cepAbertoAddress = await cepAbertoService.getAddressFromCep(cep);
@@ -98,9 +99,11 @@ class CartManager extends ChangeNotifier {
           long: cepAbertoAddress.longitude
         );
         notifyListeners();
+        loading = false;
       }
     } catch(e) {
-      debugPrint(e.toString());
+      loading = false;
+      return Future.error('CEP Inválido');
     }
   }
 
@@ -111,11 +114,12 @@ class CartManager extends ChangeNotifier {
   }
   
   Future<void> setAddress(Address address) async {
+    loading = true;
     this.address = address;
     if(await calculateDelivery(address.lat, address.long)){
-      print('price $deliveryPrice');
-      notifyListeners();
+      loading = false;
     } else {
+      loading = false;
       return Future.error('Endereço fora do raio de entrega :(');
     }
   }
@@ -135,5 +139,12 @@ class CartManager extends ChangeNotifier {
     }
     deliveryPrice = base + dis * km;
     return true;
+  }
+
+  bool _loading = false;
+  bool get loading => _loading;
+  set loading(bool value){
+    _loading = value;
+    notifyListeners();
   }
 }
