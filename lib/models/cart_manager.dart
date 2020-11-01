@@ -14,6 +14,9 @@ class CartManager extends ChangeNotifier {
   Address address;
   num productsPrice = 0.0;
   num deliveryPrice;
+  num get totalPrice => productsPrice + (deliveryPrice ?? 0);
+
+  bool get isAddressvalid => address != null && deliveryPrice != null;
   
   final Firestore firestore = Firestore.instance;
   
@@ -103,6 +106,7 @@ class CartManager extends ChangeNotifier {
 
   void removeAddress(){
     address = null;
+    deliveryPrice = null;
     notifyListeners();
   }
   
@@ -110,6 +114,7 @@ class CartManager extends ChangeNotifier {
     this.address = address;
     if(await calculateDelivery(address.lat, address.long)){
       print('price $deliveryPrice');
+      notifyListeners();
     } else {
       return Future.error('Endereço fora do raio de entrega :(');
     }
