@@ -11,6 +11,8 @@ class Order {
   String orderId;
   Timestamp date;
 
+  String get formattedId => '#${orderId.padLeft(6, '0')}';
+
   Order.fromCartManager(CartManager cartManager){
     items = List.from(cartManager.items);
     price = cartManager.totalPrice;

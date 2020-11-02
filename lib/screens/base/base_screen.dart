@@ -4,6 +4,7 @@ import 'package:wonderful_ties/common/custom_drawer/custom_drawer.dart';
 import 'package:wonderful_ties/models/page_manager.dart';
 import 'package:wonderful_ties/models/user_manager.dart';
 import 'package:wonderful_ties/screens/home/home_screen.dart';
+import 'package:wonderful_ties/screens/orders/orders_screen.dart';
 import 'package:wonderful_ties/screens/products/products_screen.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -31,12 +32,13 @@ class _BaseScreenState extends State<BaseScreen> {
               title: const Text('Home2'),
           )
         ),*/
-              Scaffold(
+              /*Scaffold(
                   drawer: CustomDrawer(),
                   appBar: AppBar(
                     title: const Text('Home3'),
                   )
-              ),
+              ),*/
+              OrdersScreen(),
               Scaffold(
                   drawer: CustomDrawer(),
                   appBar: AppBar(
