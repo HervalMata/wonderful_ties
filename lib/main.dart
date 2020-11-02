@@ -7,6 +7,7 @@ import 'package:wonderful_ties/models/user_manager.dart';
 import 'package:wonderful_ties/screens/address/address_screen.dart';
 import 'package:wonderful_ties/screens/cart/cart_screen.dart';
 import 'package:wonderful_ties/screens/checkout/checkout_screen.dart';
+import 'package:wonderful_ties/screens/confirmation/confirmation_screen.dart';
 import 'package:wonderful_ties/screens/edit_product/edit_product_screen.dart';
 import 'package:wonderful_ties/screens/login/login_screen.dart';
 import 'package:wonderful_ties/screens/product/product_screen.dart';
@@ -14,6 +15,7 @@ import 'package:wonderful_ties/screens/select_product/select_product_screen.dart
 import 'package:wonderful_ties/screens/signup/signup_screen.dart';
 import 'package:wonderful_ties/models/product_manager.dart';
 
+import 'models/order.dart';
 import 'models/orders_manager.dart';
 import 'models/product.dart';
 import 'screens/base/base_screen.dart';
@@ -107,6 +109,12 @@ class MyApp extends StatelessWidget {
             case '/select_product':
               return MaterialPageRoute(
                   builder: (_) => SelectProductScreen()
+              );
+            case '/product':
+              return MaterialPageRoute(
+                  builder: (_) => ConfirmationScreen(
+                      settings.arguments as Order
+                  )
               );
             case '/base':
             default:

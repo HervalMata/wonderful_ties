@@ -33,7 +33,7 @@ class CheckoutManager extends ChangeNotifier{
     order.orderId = orderId.toString();
     await order.save();
     cartManager.clear();
-    onSuccess();
+    onSuccess(order);
     loading = false;
   }
 
