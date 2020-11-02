@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:wonderful_ties/models/order.dart';
 import 'package:wonderful_ties/models/product.dart';
 
 class CartProduct extends ChangeNotifier {
@@ -73,6 +74,16 @@ class CartProduct extends ChangeNotifier {
   bool get hasStock {
     if(product == null) return false;
     return product.stock >= quantity;
+  }
+
+  CartProduct.fromMap(Map<String, dynamic> map) {
+    productId = map['pid'] as String;
+    quantity = map['quantity'] as int;
+    fixedPrice = map['fixedPrice'] as num;
+    firestore.document('products/$productId').get().then(
+            (doc) {
+              product = Product.fromDocument(doc);
+            });
   }
 
 }

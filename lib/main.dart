@@ -14,6 +14,7 @@ import 'package:wonderful_ties/screens/select_product/select_product_screen.dart
 import 'package:wonderful_ties/screens/signup/signup_screen.dart';
 import 'package:wonderful_ties/models/product_manager.dart';
 
+import 'models/orders_manager.dart';
 import 'models/product.dart';
 import 'screens/base/base_screen.dart';
 
@@ -41,6 +42,12 @@ class MyApp extends StatelessWidget {
           lazy: false,
           update: (_, userManager, cartManager) =>
               cartManager..updateUser(userManager),
+        ),
+        ChangeNotifierProxyProvider<UserManager, OrdersManager>(
+          create: (_) => OrdersManager(),
+          lazy: false,
+          update: (_, userManager, ordersManager) =>
+          ordersManager..updateUser(userManager.user),
         ),
         ChangeNotifierProvider(
           create: (_) => HomeManager(),
