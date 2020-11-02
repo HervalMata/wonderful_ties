@@ -27,6 +27,7 @@ class CartProduct extends ChangeNotifier {
   int quantity;
   Product _product;
   Product get product => _product;
+  num fixedPrice;
 
   set product(Product value) {
     _product = value;
@@ -51,6 +52,7 @@ class CartProduct extends ChangeNotifier {
     return {
       'pid': productId,
       'quantity': quantity,
+      'fixedPrice': fixedPrice ?? unitPrice,
     };
   }
 
