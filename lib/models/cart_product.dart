@@ -4,7 +4,7 @@ import 'package:wonderful_ties/models/product.dart';
 
 class CartProduct extends ChangeNotifier {
 
-  CartProduct.fromProduct(this.product){
+  CartProduct.fromProduct(this._product){
     productId = product.id;
     quantity = 1;
   }
@@ -16,7 +16,6 @@ class CartProduct extends ChangeNotifier {
     firestore.document('products/$productId').get().then(
          (doc) {
               product = Product.fromDocument(doc);
-              notifyListeners();
          }
     );
   }
@@ -26,7 +25,13 @@ class CartProduct extends ChangeNotifier {
   String id;
   String productId;
   int quantity;
-  Product product;
+  Product _product;
+  Product get product => _product;
+
+  set product(Product value) {
+    _product = value;
+    notifyListeners();
+  }
 
   num get unitPrice {
     if(product == null) return 0;
