@@ -3,6 +3,8 @@ import 'package:wonderful_ties/models/address.dart';
 import 'package:wonderful_ties/models/cart_manager.dart';
 import 'package:wonderful_ties/models/cart_product.dart';
 
+enum Status { cancelled, preparing, transporting, delivered }
+
 class Order {
   List<CartProduct> items;
   num price;
@@ -10,6 +12,7 @@ class Order {
   Address address;
   String orderId;
   Timestamp date;
+  Status status;
 
   String get formattedId => '#${orderId.padLeft(6, '0')}';
 
@@ -18,6 +21,7 @@ class Order {
     price = cartManager.totalPrice;
     userId = cartManager.user.id;
     address = cartManager.address;
+    status = Status.preparing;
   }
 
   final Firestore firestore = Firestore.instance;
@@ -29,6 +33,8 @@ class Order {
         'price': price,
         'user': userId,
         'address': address.toMap(),
+        'status': status.index,
+        'date': Timestamp.now(),
       }
     );
   }
@@ -42,10 +48,28 @@ class Order {
     userId = doc.data['user'] as String;
     address = Address.fromMap(doc.data['address'] as Map<String, dynamic>);
     date = doc.data['date'] as Timestamp;
+    status = Status.values[doc.data['status'] as int];
   }
+
+  String get statusText => getStatusText(status);
 
   @override
   String toString() {
     return 'Order{items: $items, price: $price, userId: $userId, address: $address, orderId: $orderId, date: $date, firestore: $firestore}';
+  }
+
+  static String getStatusText(Status status) {
+    switch(status){
+      case Status.cancelled:
+        return 'Cancelado';
+      case Status.preparing:
+        return 'Em preparação';
+      case Status.transporting:
+        return 'Em transporte';
+      case Status.delivered:
+        return 'Entregue';
+      default:
+        return '';
+    }
   }
 }
