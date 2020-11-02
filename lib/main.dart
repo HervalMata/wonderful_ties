@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wonderful_ties/models/admin_orders_manager.dart';
 import 'package:wonderful_ties/models/admin_users_manager.dart';
 import 'package:wonderful_ties/models/cart_manager.dart';
 import 'package:wonderful_ties/models/home_manager.dart';
@@ -15,10 +16,10 @@ import 'package:wonderful_ties/screens/select_product/select_product_screen.dart
 import 'package:wonderful_ties/screens/signup/signup_screen.dart';
 import 'package:wonderful_ties/models/product_manager.dart';
 
-import 'models/order.dart';
-import 'models/orders_manager.dart';
-import 'models/product.dart';
-import 'screens/base/base_screen.dart';
+import 'package:wonderful_ties/models/order.dart';
+import 'package:wonderful_ties/models/orders_manager.dart';
+import 'package:wonderful_ties/models/product.dart';
+import 'package:wonderful_ties/screens/base/base_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,6 +51,12 @@ class MyApp extends StatelessWidget {
           lazy: false,
           update: (_, userManager, ordersManager) =>
           ordersManager..updateUser(userManager.user),
+        ),
+        ChangeNotifierProxyProvider<UserManager, AdminOrdersManager>(
+          create: (_) => AdminOrdersManager(),
+          lazy: false,
+          update: (_, userManager, ordersManager) =>
+          ordersManager..updateAdmin(adminEnabled: userManager.adminEnabled),
         ),
         ChangeNotifierProvider(
           create: (_) => HomeManager(),

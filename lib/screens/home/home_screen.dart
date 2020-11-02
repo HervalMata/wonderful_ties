@@ -76,7 +76,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Consumer(builder: (_, homeManager, __){
+              Consumer<HomeManager>(
+                  builder: (_, homeManager, __){
                 if(homeManager.loading){
                   return SliverToBoxAdapter(
                     child: LinearProgressIndicator(

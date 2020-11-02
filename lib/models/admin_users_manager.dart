@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:wonderful_ties/models/user.dart';
 import 'package:wonderful_ties/models/user_manager.dart';
@@ -12,7 +11,7 @@ class AdminUsersManager extends ChangeNotifier{
   StreamSubscription _subscription;
 
   void updateUser(UserManager userManager){
-    _subscription.cancel();
+    _subscription?.cancel();
     if(userManager.adminEnabled){
       _listenToUsers();
     } else {

@@ -12,7 +12,7 @@ class ProductsScreen extends StatelessWidget {
     return Scaffold(
       drawer: CustomDrawer(),
       appBar: AppBar(
-        title: Consumer(
+        title: Consumer<ProductManager>(
             builder: (_, productManager, __){
               if(productManager.search.isEmpty){
                 return const Text('Produtos');
