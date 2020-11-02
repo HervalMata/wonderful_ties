@@ -6,4 +6,11 @@ class CheckoutManager extends ChangeNotifier{
   void updateCart(CartManager cartManager){
     this.cartManager = cartManager;
   }
+  void checkout(){
+    _decrementStock();
+  }
+
+  void _decrementStock() {
+
+  }
 }
