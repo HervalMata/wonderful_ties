@@ -6,6 +6,7 @@ import 'package:wonderful_ties/models/home_manager.dart';
 import 'package:wonderful_ties/models/user_manager.dart';
 import 'package:wonderful_ties/screens/address/address_screen.dart';
 import 'package:wonderful_ties/screens/cart/cart_screen.dart';
+import 'package:wonderful_ties/screens/checkout/checkout_screen.dart';
 import 'package:wonderful_ties/screens/edit_product/edit_product_screen.dart';
 import 'package:wonderful_ties/screens/login/login_screen.dart';
 import 'package:wonderful_ties/screens/product/product_screen.dart';
@@ -84,6 +85,10 @@ class MyApp extends StatelessWidget {
             case '/address':
               return MaterialPageRoute(
                   builder: (_) => AddressScreen()
+              );
+            case '/checkout':
+              return MaterialPageRoute(
+                  builder: (_) => CheckoutScreen()
               );
             case '/edit-product':
               return MaterialPageRoute(

@@ -19,7 +19,7 @@ class AddressScreen extends StatelessWidget{
                 return PriceCard(
                   buttonText: 'Continuar para o Pagamento',
                   onPressd: cartManager.isAddressvalid ? (){
-
+                    Navigator.of(context).pushNamed('/checkout');
                   } : null,
                 );
               }
