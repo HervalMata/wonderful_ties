@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:wonderful_ties/models/cart_manager.dart';
 import 'package:wonderful_ties/models/product.dart';
 
+import 'order.dart';
+
 class CheckoutManager extends ChangeNotifier{
   CartManager cartManager;
   final Firestore firestore = Firestore.instance;
@@ -15,9 +17,13 @@ class CheckoutManager extends ChangeNotifier{
       await _decrementStock();
     } catch(e){
       onStockFail(e);
-      debugPrint(e.toString());
+      return;
     }
-    _getOrderId().then((value) => print(value));
+    final orderId = await _getOrderId();
+    final order = Order.fromCartManager(cartManager);
+    order.orderId = orderId.toString();
+    await order.save();
+
   }
 
   Future<void> _decrementStock() {
