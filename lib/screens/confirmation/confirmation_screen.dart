@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wonderful_ties/models/order.dart';
-import 'package:wonderful_ties/screens/cart/components/order_product_tile.dart';
+import 'file:///D:/Projetos/wonderful_ties/lib/common/order/order_product_tile.dart';
 
 class ConfirmationScreen extends StatelessWidget{
   final Order order;

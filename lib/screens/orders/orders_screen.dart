@@ -3,8 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:wonderful_ties/common/custom_drawer/custom_drawer.dart';
 import 'package:wonderful_ties/common/empty_card.dart';
 import 'package:wonderful_ties/common/login_card.dart';
+import 'package:wonderful_ties/common/order/order_tile.dart';
 import 'package:wonderful_ties/models/orders_manager.dart';
-import 'file:///D:/Projetos/wonderful_ties/lib/common/order_tile.dart';
+
 
 class OrdersScreen extends StatelessWidget{
   @override

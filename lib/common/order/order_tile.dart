@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:wonderful_ties/models/order.dart';
-import 'package:wonderful_ties/screens/cart/components/order_product_tile.dart';
+import 'file:///D:/Projetos/wonderful_ties/lib/common/order/order_product_tile.dart';
 
 class OrderTile extends StatelessWidget{
   final Order order;
-  const OrderTile(this.order);
+  final bool showControls;
+  const OrderTile(this.order, {this.showControls = false});
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
@@ -49,7 +50,38 @@ class OrderTile extends StatelessWidget{
             children: order.items.map((e) {
               return OrderProductTile(e);
             }).toList(),
-          )
+          ),
+          if(showControls && order.status != Status.cancelled)
+            SizedBox(
+              height: 50,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget> [
+                  FlatButton(
+                      onPressed: (){
+
+                      },
+                      textColor: Colors.red,
+                      child: const Text('Cancelar'),
+                  ),
+                  FlatButton(
+                    onPressed: order.back,
+                    child: const Text('Recuar'),
+                  ),
+                  FlatButton(
+                    onPressed: order.advance,
+                    child: const Text('Avançar'),
+                  ),
+                  FlatButton(
+                    onPressed: (){
+
+                    },
+                    textColor: primaryColor,
+                    child: const Text('Endereço'),
+                  ),
+                ],
+              ),
+            )
         ],
       ),
     );
