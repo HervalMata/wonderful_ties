@@ -9,7 +9,11 @@ import 'package:wonderful_ties/models/admin_orders_manager.dart';
 import 'package:wonderful_ties/models/order.dart';
 
 
-class AdminOrdersScreen extends StatelessWidget{
+class AdminOrdersScreen extends StatefulWidget {
+  @override
+  _AdminOrdersScreenState createState() => _AdminOrdersScreenState();
+}
+class _AdminOrdersScreenState extends State<AdminOrdersScreen>{
   final PanelController panelController = PanelController();
   @override
   Widget build(BuildContext context) {
