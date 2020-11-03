@@ -7,7 +7,25 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class Product extends ChangeNotifier {
-  Product({this.id, this.name, this.description, this.images}){
+  String id;
+  String name;
+  String description;
+  num price;
+  int stock;
+  List<String> images;
+  List<dynamic> newImages;
+
+  bool deleted;
+  bool _loading = false;
+  bool get loading => _loading;
+  bool get hasStock => stock > 0;
+
+  set loading(bool value){
+    _loading = value;
+    notifyListeners();
+  }
+
+  Product({this.id, this.name, this.description, this.images, this.deleted = false}){
     images = images ?? [];
   }
 
@@ -18,6 +36,7 @@ class Product extends ChangeNotifier {
     price = document['price'] as num;
     stock = document['stock'] as int;
     images = List<String>.from(document.data['images'] as List<dynamic>);
+    deleted = (document.data['deleted'] ?? false) as bool;
   }
 
   final Firestore firestore = Firestore.instance;
@@ -25,27 +44,12 @@ class Product extends ChangeNotifier {
   DocumentReference get firestoreRef => firestore.document('products/$id');
   StorageReference get storageRef => storage.ref().child('products').child(id);
 
-  String id;
-  String name;
-  String description;
-  num price;
-  int stock;
-  List<String> images;
-  List<dynamic> newImages;
-
-  bool _loading = false;
-  bool get loading => _loading;
-
-  set loading(bool value){
-    _loading = value;
-    notifyListeners();
-  }
-
   Product clone() {
     return Product(
       id: id, name: name,
       description: description,
       images: List.from(images),
+      deleted: deleted,
     );
   }
 
@@ -56,6 +60,7 @@ class Product extends ChangeNotifier {
       'description': description,
       'price': price,
       'stock': stock,
+      'deleted': deleted,
     };
     if(id == null){
       final doc = await firestore.collection('products').add(data);
@@ -93,9 +98,9 @@ class Product extends ChangeNotifier {
     loading = false;
   }
   
-
-
-  bool get hasStock => stock > 0;
+  void delete() {
+    firestoreRef.updateData({'deleted': true});
+  }
 
   @override
   String toString() {
