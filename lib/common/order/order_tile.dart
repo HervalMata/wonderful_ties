@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wonderful_ties/common/order/cancel_order_dialog.dart';
+import 'package:wonderful_ties/common/order/export_address_dialog.dart';
 import 'package:wonderful_ties/models/order.dart';
 import 'file:///D:/Projetos/wonderful_ties/lib/common/order/order_product_tile.dart';
 
@@ -58,7 +60,12 @@ class OrderTile extends StatelessWidget{
                 scrollDirection: Axis.horizontal,
                 children: <Widget> [
                   FlatButton(
-                      onPressed: order.cancel,
+                      onPressed: (){
+                        showDialog(
+                            context: context,
+                          builder: (_) => CancelOrderDialog(order)
+                        );
+                      },
                       textColor: Colors.red,
                       child: const Text('Cancelar'),
                   ),
@@ -72,7 +79,10 @@ class OrderTile extends StatelessWidget{
                   ),
                   FlatButton(
                     onPressed: (){
-
+                      showDialog(
+                          context: context,
+                          builder: (_) => ExportAddressDialog(order.address)
+                      );
                     },
                     textColor: primaryColor,
                     child: const Text('Endereço'),
