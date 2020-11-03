@@ -41,14 +41,14 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16,),
                     TextFormField(
-                      decoration: const InputDecoration(hintText: 'E-mail'),
+                      decoration: const InputDecoration(hintText: 'Email'),
                       keyboardType: TextInputType.emailAddress,
                       enabled: !userManager.loading,
                       validator: (email){
                         if(email.isEmpty)
                           return 'Campo obrigatório';
                         else if(!emailValid(email))
-                          return 'E-mail inválido';
+                          return 'Email inválido';
                         return null;
                       },
                       onSaved: (email) => user.email = email,
@@ -82,17 +82,14 @@ class SignUpScreen extends StatelessWidget {
                       onSaved: (pass) => user.confirmPassword = pass,
                     ),
                     const SizedBox(height: 16,),
-                    SizedBox(
-                      height: 44,
-                      child: RaisedButton(
+                    RaisedButton(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         color: Theme.of(context).primaryColor,
-                        disabledColor: Theme.of(context).primaryColor
-                            .withAlpha(100),
+                        disabledColor: Theme.of(context).primaryColor.withAlpha(100),
                         textColor: Colors.white,
                         onPressed: userManager.loading ? null : (){
                           if(formkey.currentState.validate()){
                             formkey.currentState.save();
-
                             if(user.password != user.confirmPassword){
                               scaffoldkey.currentState.showSnackBar(
                                   const SnackBar(
@@ -102,7 +99,6 @@ class SignUpScreen extends StatelessWidget {
                               );
                               return;
                             }
-
                             userManager.signUp(
                                 user: user,
                                 onSuccess: (){
@@ -120,16 +116,15 @@ class SignUpScreen extends StatelessWidget {
                           }
                         },
                         child: userManager.loading ?
-                        CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
-                        )
-                            : const Text(
-                          'Criar Conta',
-                          style: TextStyle(
-                              fontSize: 18
-                          ),
-                        ),
-                      ),
+                              CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(Colors.white),
+                              )
+                                : const Text(
+                                    'Criar Conta',
+                                  style: TextStyle(
+                                      fontSize: 15
+                                  ),
+                                ),
                     )
                   ],
                 );

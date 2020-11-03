@@ -6,15 +6,20 @@ import 'package:wonderful_ties/helpers/firebase_errors.dart';
 import 'package:wonderful_ties/models/user.dart';
 
 class UserManager extends ChangeNotifier {
-  UserManager(){
-    _loadCurrentUser();
-  }
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final Firestore firestore = Firestore.instance;
+
   User user;
   bool _loading = false;
   bool get loading => _loading;
   bool get isLoggedIn => user != null;
+  bool get adminEnabled => user != null && user.admin;
+
+  UserManager(){
+    _loadCurrentUser();
+  }
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final Firestore firestore = Firestore.instance;
+
   Future<void> signIn({User user, Function onFail, Function onSuccess}) async {
     loading = true;
     try {
@@ -69,5 +74,7 @@ class UserManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get adminEnabled => user != null && user.admin;
+  void facebookLogin(){
+
+  }
 }

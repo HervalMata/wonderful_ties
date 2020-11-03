@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:wonderful_ties/helpers/validators.dart';
 import 'package:wonderful_ties/models/user.dart';
 import 'package:wonderful_ties/models/user_manager.dart';
@@ -66,36 +67,46 @@ class LoginScreen extends StatelessWidget {
                   ),
                   child,
                   const SizedBox(height: 16,),
-                  SizedBox(
-                    height: 44,
-                    child: RaisedButton(onPressed: userManager.loading ? null : (){
-                      if(formkey.currentState.validate()){
-                        userManager.signIn(
-                          user: User(
+                  RaisedButton(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      onPressed: userManager.loading ? null : (){
+                        if(formkey.currentState.validate()){
+                          userManager.signIn(
+                            user: User(
                               email: emailController.text,
                               password: passController.text
-                          ),
-                          onFail: (e){
-                            scaffoldkey.currentState.showSnackBar(
+                            ),
+                            onFail: (e){
+                              scaffoldkey.currentState.showSnackBar(
                                 SnackBar(
                                   content: Text('Falha ao entrar: $e'),
                                   backgroundColor: Colors.red,
-                                ));
-                          },
-                          onSuccess: (){
+                                )
+                              );
+                            },
+                            onSuccess: (){
                               Navigator.of(context).pop();
-                          }
-                        );
-                      }
-                    },
-                      color: Theme.of(context).primaryColor,
-                      disabledColor: Theme.of(context).primaryColor.withAlpha(100),
-                      textColor: Colors.white,
-                      child: userManager.loading ?
-                      CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                      ) : const Text('Entrar', style: TextStyle(fontSize: 18),),
+                            }
+                          );
+                        }
+                      },
+                    color: Theme.of(context).primaryColor,
+                    disabledColor: Theme.of(context).primaryColor.withAlpha(100),
+                    textColor: Colors.white,
+                    child: userManager.loading ?
+                          CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                          ) : const Text(
+                            'Entrar',
+                            style: TextStyle(fontSize: 15),
                     ),
+                  ),
+                  SignInButton(
+                      Buttons.Facebook,
+                      text: 'Entrar com Facebook',
+                      onPressed: (){
+                        userManager.facebookLogin();
+                      },
                   )
                 ],
               );
