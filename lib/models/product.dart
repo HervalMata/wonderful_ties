@@ -18,11 +18,17 @@ class Product extends ChangeNotifier {
   bool deleted;
   bool _loading = false;
   bool get loading => _loading;
-  bool get hasStock => stock > 0;
+  bool get hasStock => stock > 0 && !deleted;
 
   set loading(bool value){
     _loading = value;
     notifyListeners();
+  }
+
+  num get basePrice {
+    num lowest = double.infinity;
+    if(price <lowest) lowest = price;
+    return lowest;
   }
 
   Product({this.id, this.name, this.description, this.images, this.deleted = false}){

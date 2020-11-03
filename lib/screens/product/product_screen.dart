@@ -20,7 +20,7 @@ class ProductScreen extends StatelessWidget {
           actions: <Widget> [
             Consumer<UserManager>(
               builder: (_, userManager, __) {
-                if(userManager.adminEnabled){
+                if(userManager.adminEnabled && !product.deleted){
                   return IconButton(
                       icon: Icon(Icons.edit),
                       onPressed: (){
@@ -97,6 +97,19 @@ class ProductScreen extends StatelessWidget {
                         fontSize: 16
                       ),
                     ),
+                    const SizedBox(height: 20,),
+                    if(product.deleted)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16, bottom: 8),
+                        child: Text(
+                          'Este produto não está mais disponivél',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.red,
+                          ),
+                        ),
+                      ),
                     const SizedBox(height: 20,),
                     if(product.hasStock)
                       Consumer<UserManager>(
