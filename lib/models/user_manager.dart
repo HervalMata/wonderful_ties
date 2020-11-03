@@ -13,6 +13,8 @@ class UserManager extends ChangeNotifier {
   bool get loading => _loading;
   bool get isLoggedIn => user != null;
   bool get adminEnabled => user != null && user.admin;
+  bool _loadingFace = false;
+  bool get loadingFace => _loadingFace;
 
   UserManager(){
     _loadCurrentUser();
@@ -36,6 +38,11 @@ class UserManager extends ChangeNotifier {
 
   set loading(bool value) {
     _loading = value;
+    notifyListeners();
+  }
+
+  set loadingFace(bool value) {
+    _loadingFace = value;
     notifyListeners();
   }
 
@@ -76,7 +83,7 @@ class UserManager extends ChangeNotifier {
   }
 
   Future<void> facebookLogin({Function onSuccess, Function onFail}) async {
-    loading = true;
+    loadingFace = true;
     final result = await FacebookLogin().logIn(['email', 'public_profile']);
     switch(result.status) {
       case FacebookLoginStatus.loggedIn:
@@ -96,6 +103,6 @@ class UserManager extends ChangeNotifier {
         }
         break;
     }
-    loading = false;
+    loadingFace = false;
   }
 }
