@@ -25,6 +25,8 @@ class Store {
          'Dom: ${formattedPeriod(opening['sunday'])}';
   }
 
+  String get clearPhone => phone.replaceAll(RegExp(r"[^\d]"), "");
+
   String get statusText {
     switch(status){
       case StoreStatus.closed:
