@@ -24,3 +24,12 @@ admin.initializeApp(functions.config().firebase);
         "data": snapshot.data()
     };
  });
+
+ export const addMessage = functions.https.onCall( async (data, context) => {
+
+     console.log(data);
+     const snapshot = await admin.firestore().collection('messages').add(data);
+     return {
+         "success": snapshot.id
+     };
+  });
