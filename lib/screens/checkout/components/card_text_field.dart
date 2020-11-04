@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,6 +9,8 @@ class CardTextfield extends StatelessWidget{
   final TextInputType textInputType;
   final List<TextInputFormatter> inputFormatters;
   final FormFieldValidator<String> validator;
+  final int maxLength;
+  final TextAlign textAlign;
 
   CardTextfield({
     this.title,
@@ -17,7 +18,9 @@ class CardTextfield extends StatelessWidget{
     this.hint,
     this.textInputType,
     this.inputFormatters,
-    this.validator
+    this.validator,
+    this.maxLength,
+    this.textAlign = TextAlign.start,
   });
 
   @override
@@ -31,6 +34,7 @@ class CardTextfield extends StatelessWidget{
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
+              if(title != null)
               Row(
                 children: <Widget> [
                   Text(
@@ -54,22 +58,29 @@ class CardTextfield extends StatelessWidget{
               TextFormField(
                 style: TextStyle(
                   fontWeight: bold ? FontWeight.bold : FontWeight.w500,
-                  color: Colors.white,
+                  color: title == null && state.hasError
+                  ? Colors.white : Colors.red,
                 ),
+                cursorColor: Colors.white,
                 decoration: InputDecoration(
                     hintText: hint,
                     hintStyle: TextStyle(
-                      color: Colors.white.withAlpha(100),
+                      color: title == null && state.hasError
+                            ? Colors.red.withAlpha(200)
+                             : Colors.white.withAlpha(100),
                     ),
                     border: InputBorder.none,
                     isDense: true,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 2)
+                    contentPadding: const EdgeInsets.symmetric(vertical: 2),
+                    counterText: '',
                 ),
                 keyboardType: textInputType,
                 inputFormatters: inputFormatters,
                 onChanged: (text){
                   state.didChange(text);
                 },
+                maxLength: maxLength,
+                textAlign: textAlign,
               )
             ],
           ),
