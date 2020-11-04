@@ -33,3 +33,8 @@ admin.initializeApp(functions.config().firebase);
          "success": snapshot.id
      };
   });
+
+  export const onNewOrder = functions.firebase.document("/orders/{orderId}").onCreate((snapshot, context) => {
+       const orderId = context.params.orderId;
+       console.log(orderId);
+    });
