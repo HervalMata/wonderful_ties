@@ -6,9 +6,17 @@ import 'package:wonderful_ties/screens/checkout/components/card_text_field.dart'
 import 'package:credit_card_type_detector/credit_card_type_detector.dart';
 
 class CardFront extends StatelessWidget{
+  final FocusNode numberfocus;
+  final FocusNode dateFocus;
+  final FocusNode nameFocus;
+  final VoidCallback finished;
+
+  CardFront({this.numberfocus, this.dateFocus, this.nameFocus, this.finished});
+
   final MaskTextInputFormatter dateFormatter = MaskTextInputFormatter(
       mask: '!#/####', filter: {'#': RegExp('[0-9]'), '!': RegExp('[0-1')}
   );
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -42,6 +50,10 @@ class CardFront extends StatelessWidget{
                           return 'Inválido';
                         return null;
                       },
+                      onSubmitted: (_){
+                        dateFocus.requestFocus();
+                      },
+                      focusNode: numberfocus,
                     ),
                     CardTextfield(
                       title: 'Validade',
@@ -52,6 +64,10 @@ class CardFront extends StatelessWidget{
                         if(date.length != 7) return 'Inválido';
                         return null;
                       },
+                      onSubmitted: (_){
+                        nameFocus.requestFocus();
+                      },
+                      focusNode: dateFocus,
                     ),
                     CardTextfield(
                       title: 'Titular',
@@ -62,6 +78,10 @@ class CardFront extends StatelessWidget{
                         if(name.isEmpty) return 'Inválido';
                         return null;
                       },
+                      onSubmitted: (_){
+                        finished();
+                      },
+                      focusNode: nameFocus,
                     ),
                   ],
                 ),
