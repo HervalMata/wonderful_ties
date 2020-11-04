@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:wonderful_ties/models/address.dart';
+import 'package:wonderful_ties/helpers/extensions.dart';
 
 class Store {
 
@@ -8,11 +9,23 @@ class Store {
   String image;
   String phone;
   Address address;
-  Map<String, Map> opening;
+  Map<String, Map<String, TimeOfDay>> opening;
 
   String get addressText =>
       '${address.street}, ${address.number}${address.complement.isNotEmpty ? ' - ${address.complement}' : ''} - '
       '${address.district}, ${address.city}/${address.state}';
+
+  String get openingText {
+    return
+        'Seg-Sex: ${formattedPeriod(opening['monfri'])}\n'
+        'Sab: ${formattedPeriod(opening['saturday'])}\n'
+         'Dom: ${formattedPeriod(opening['sanday'])}';
+  }
+
+  String formattedPeriod(Map<String, TimeOfDay> period) {
+    if(period == null) return 'Fechada';
+    return '${period['from'].formatted()} - ${period['to'].formatted()}';
+  }
 
   Store.fromDocument(DocumentSnapshot doc) {
     name = doc.data['name'] as String;
@@ -42,4 +55,6 @@ class Store {
     });
     print(opening);
   }
+
+
 }
