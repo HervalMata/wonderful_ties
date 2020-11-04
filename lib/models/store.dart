@@ -10,6 +10,10 @@ class Store {
   Address address;
   Map<String, Map> opening;
 
+  String get addressText =>
+      '${address.street}, ${address.number}${address.complement.isNotEmpty ? ' - ${address.complement}' : ''} - '
+      '${address.district}, ${address.city}/${address.state}';
+
   Store.fromDocument(DocumentSnapshot doc) {
     name = doc.data['name'] as String;
     image = doc.data['image'] as String;
