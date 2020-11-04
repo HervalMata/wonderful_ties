@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CardTextfield extends StatelessWidget{
 
@@ -7,8 +8,15 @@ class CardTextfield extends StatelessWidget{
   final bool bold;
   final String hint;
   final TextInputType textInputType;
+  final List<TextInputFormatter> inputFormatters;
 
-  CardTextfield({this.title, this.bold = false, this.hint, this.textInputType});
+  CardTextfield({
+    this.title,
+    this.bold = false,
+    this.hint,
+    this.textInputType,
+    this.inputFormatters
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +48,7 @@ class CardTextfield extends StatelessWidget{
                 contentPadding: const EdgeInsets.symmetric(vertical: 2)
               ),
               keyboardType: textInputType,
+              inputFormatters: inputFormatters,
             )
           ],
         ),
