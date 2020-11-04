@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Laços da Cris</string>
-    <string name="facebook_app_id">705074733663048</string>
+    <string name="facebook_app_id">446237086361365</string>
 
-    <string name="fb_login_protocol_scheme">fb705074733663048</string>
+    <string name="fb_login_protocol_scheme">fb446237086361365</string>
 </resources>

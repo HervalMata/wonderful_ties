@@ -4,6 +4,7 @@ import 'package:wonderful_ties/models/admin_orders_manager.dart';
 import 'package:wonderful_ties/models/admin_users_manager.dart';
 import 'package:wonderful_ties/models/cart_manager.dart';
 import 'package:wonderful_ties/models/home_manager.dart';
+import 'package:wonderful_ties/models/stores_manager.dart';
 import 'package:wonderful_ties/models/user_manager.dart';
 import 'package:wonderful_ties/screens/address/address_screen.dart';
 import 'package:wonderful_ties/screens/cart/cart_screen.dart';
@@ -61,6 +62,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => HomeManager(),
           lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => StoresManager(),
         ),
         ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
           create: (_) => AdminUsersManager(),
