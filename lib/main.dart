@@ -1,3 +1,4 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wonderful_ties/models/admin_orders_manager.dart';
@@ -22,9 +23,10 @@ import 'package:wonderful_ties/models/orders_manager.dart';
 import 'package:wonderful_ties/models/product.dart';
 import 'package:wonderful_ties/screens/base/base_screen.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
-  
+  final response = await CloudFunctions.instance.getHttpsCallable(functionName: 'helloWorld').call();
+  print(response.data);
   //Firestore.instance.collection('teste').add({'teste': 'teste'});
 }
 
