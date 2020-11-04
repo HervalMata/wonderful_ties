@@ -25,6 +25,19 @@ class Store {
          'Dom: ${formattedPeriod(opening['sunday'])}';
   }
 
+  String get statusText {
+    switch(status){
+      case StoreStatus.closed:
+        return 'Fechada';
+      case StoreStatus.open:
+        return 'Aberta';
+      case StoreStatus.closing:
+        return 'Fechando';
+      default:
+        return '';
+    }
+  }
+
   String formattedPeriod(Map<String, TimeOfDay> period) {
     if(period == null) return 'Fechada';
     return '${period['from'].formatted()} - ${period['to'].formatted()}';
