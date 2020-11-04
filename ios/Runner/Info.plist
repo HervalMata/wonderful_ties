@@ -60,7 +60,7 @@
 <key>FacebookAppID</key> 
 <string>446237086361365</string> 
 <key>FacebookDisplayName</key> 
-<string>CrisLaços</string>
+<string>CrisLaï¿½os</string>
 
 <key>LSApplicationQueriesSchemes</key>
 <array>
@@ -68,6 +68,9 @@
     <string>fb-messenger-share-api</string>
     <string>fbauth2</string>
     <string>fbshareextension</string>
+    <string>comgooglemaps</string>
+    <string>iosamap</string>
+    <string>waze</string>
 </array>
 </dict>
 </plist>
