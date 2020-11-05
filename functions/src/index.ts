@@ -8,8 +8,8 @@ admin.initializeApp(functions.config().firebase);
 // // https://firebase.google.com/docs/functions/typescript
 //
 
-const merchantId = functions.config().cielo.merchantId;
-const merchantKey = functions.config().cielo.merchantKey;
+const merchantId = functions.config().cielo.merchantid;
+const merchantKey = functions.config().cielo.merchantkey;
 
 const cieloParams: CieloConstructor = {
     merchantId: merchantId,

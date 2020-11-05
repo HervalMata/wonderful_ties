@@ -38,6 +38,7 @@ class CardFront extends StatelessWidget{
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget> [
                     CardTextfield(
+                      initialValue: creditCard.number,
                       title: 'Número',
                       hint: '0000 0000 0000 0000',
                       textInputType: TextInputType.number,
@@ -59,6 +60,7 @@ class CardFront extends StatelessWidget{
                       onSaved: creditCard.setNumber,
                     ),
                     CardTextfield(
+                      initialValue: creditCard.expirationDate,
                       title: 'Validade',
                       hint: '11/2020',
                       textInputType: TextInputType.number,
@@ -74,6 +76,7 @@ class CardFront extends StatelessWidget{
                       onSaved: creditCard.setExpirationDate,
                     ),
                     CardTextfield(
+                      initialValue: creditCard.holder,
                       title: 'Titular',
                       hint: 'João da Silva',
                       textInputType: TextInputType.number,
