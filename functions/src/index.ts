@@ -127,8 +127,64 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
         }
     }
 
-    const transaction = await cielo.creditCard.transaction(saleData);
-})
+    try {
+        const transaction = await cielo.creditCard.transaction(saleData);
+        if (transaction.payment.status === 1) {
+            return {
+                "success": true,
+                "paymentId": transaction.payment.paymentId
+            }
+        } else {
+            let message = '';
+            switch (transaction.payment.returnCode) {
+                case '5':
+                    message = 'Não Autorizado';
+                    break;
+
+                case '57':
+                    message = 'Cartão Expirado';
+                    break;
+
+                case '78':
+                    message = 'Caartão Bloqueado';
+                    break;
+
+                case '99':
+                    message = 'Timeout';
+                    break;
+
+                case '77':
+                    message = 'Cartão Cancelado';
+                    break;
+
+                case '70':
+                    message = 'Problemas com o Cartão de Crédito';
+                    break;
+            
+                default:
+                    message = transaction.payment.returnMessage;
+                    break;
+            }
+            return {
+                "success": false,
+                "status": transaction.payment.status,
+                "error": {
+                    "code": transaction.payment.returnCode,
+                    "message": message
+                }
+            };
+        }
+    } catch (error) {
+        return {
+            "success": false,
+            "error": {
+                "code": error.response[0].code,
+                "message": error.response[0].Message
+            }
+        };
+    }
+    
+});
 
  export const helloWorld = functions.https.onCall((data, context) => {
    //functions.logger.info("Hello logs!", {structuredData: true});
