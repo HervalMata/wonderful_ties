@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:wonderful_ties/models/cart_manager.dart';
 import 'package:wonderful_ties/models/credit_card.dart';
 import 'package:wonderful_ties/models/product.dart';
+import 'package:wonderful_ties/services/cielo_payment.dart';
 
 import 'order.dart';
 
 class CheckoutManager extends ChangeNotifier{
+
   CartManager cartManager;
+
   final Firestore firestore = Firestore.instance;
+  final CieloPayment cieloPayment = CieloPayment();
+
   void updateCart(CartManager cartManager){
     this.cartManager = cartManager;
   }
@@ -24,15 +29,21 @@ class CheckoutManager extends ChangeNotifier{
     Function onStockFail, Function onSuccess}) async {
     loading = true;
     try {
+      final orderId = await _getOrderId();
+      cieloPayment.authorize(
+        creditCard: creditCard,
+        price: cartManager.totalPrice,
+        orderId: orderId.toString(),
+        user: cartManager.user,
+      );
       await _decrementStock();
     } catch(e){
       onStockFail(e);
       loading = false;
       return;
     }
-    final orderId = await _getOrderId();
     final order = Order.fromCartManager(cartManager);
-    order.orderId = orderId.toString();
+    //order.orderId = orderId.toString();
     await order.save();
     cartManager.clear();
     onSuccess(order);
