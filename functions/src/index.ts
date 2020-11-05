@@ -34,7 +34,7 @@ admin.initializeApp(functions.config().firebase);
      };
   });
 
-  export const onNewOrder = functions.firebase.document("/orders/{orderId}").onCreate((snapshot, context) => {
+  export const onNewOrder = functions.firestore.document("/orders/{orderId}").onCreate((snapshot, context) => {
        const orderId = context.params.orderId;
        console.log(orderId);
     });

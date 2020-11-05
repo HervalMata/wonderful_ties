@@ -25,8 +25,8 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
       keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
       keyboardBarColor: Colors.grey[200],
       actions: [
-        KeyboardAction(focusNode: numberFocus, displayDoneButton: false, config: null,),
-        KeyboardAction(focusNode: dateFocus, displayDoneButton: false, config: null,),
+        KeyboardAction(focusNode: numberFocus, displayDoneButton: false),
+        KeyboardAction(focusNode: dateFocus, displayDoneButton: false),
         KeyboardAction(
             focusNode: nameFocus,
             toolbarButtons: [
@@ -42,7 +42,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
                   ),
                 );
               }
-            ], config: null,
+            ],
         ),
       ]
     );

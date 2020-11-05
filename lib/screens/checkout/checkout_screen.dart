@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wonderful_ties/common/price_card.dart';
 import 'package:wonderful_ties/models/cart_manager.dart';
 import 'package:wonderful_ties/models/checkout_manager.dart';
+import 'package:wonderful_ties/screens/checkout/components/cpf_field.dart';
 import 'package:wonderful_ties/screens/checkout/components/credit_card_widget.dart';
 
 class CheckoutScreen extends StatelessWidget{
@@ -55,11 +56,14 @@ class CheckoutScreen extends StatelessWidget{
                 child: ListView(
                   children: <Widget> [
                     CreditCardWidget(),
+                    CpfField(),
                     PriceCard(
                       buttonText: 'Finalizar Pedido',
                       onPressd: (){
-                        if(formKey.currentState.validate())
+                        if(formKey.currentState.validate()){
                           print('enviar');
+                        }
+
                         /*checkoutManager.checkout(
                           onStockFail: (e){
                             Navigator.of(context).popUntil((route) => route.settings.name == '/cart');
