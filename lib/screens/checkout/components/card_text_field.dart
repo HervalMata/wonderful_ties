@@ -14,6 +14,7 @@ class CardTextfield extends StatelessWidget{
   final FocusNode focusNode;
   final Function(String) onSubmitted;
   final TextInputAction textInputAction;
+  final FormFieldSetter<String> onSaved;
 
   const CardTextfield({
     this.title,
@@ -26,6 +27,7 @@ class CardTextfield extends StatelessWidget{
     this.textAlign = TextAlign.start,
     this.focusNode,
     this.onSubmitted,
+    this.onSaved,
   }) : textInputAction = onSubmitted == null
         ? TextInputAction.done
         : TextInputAction.next;
@@ -35,6 +37,7 @@ class CardTextfield extends StatelessWidget{
     return FormField<String>(
       initialValue: '',
       validator: validator,
+      onSaved: onSaved,
       builder: (state){
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 2),

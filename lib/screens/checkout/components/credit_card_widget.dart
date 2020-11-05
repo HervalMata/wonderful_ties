@@ -1,10 +1,13 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
+import 'package:wonderful_ties/models/credit_card.dart';
 import 'package:wonderful_ties/screens/checkout/components/card_back.dart';
 import 'package:wonderful_ties/screens/checkout/components/card_front.dart';
 
 class CreditCardWidget extends StatefulWidget{
+  final CreditCard creditCard;
+  const CreditCardWidget(this.creditCard);
   @override
   _CreditCardWidgetState createState() => _CreditCardWidgetState();
 }
@@ -64,6 +67,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
                   speed: 700,
                   flipOnTouch: false,
                   front: CardFront(
+                    creditCard: widget.creditCard,
                     numberfocus: numberFocus,
                     dateFocus: dateFocus,
                     nameFocus: nameFocus,
@@ -73,6 +77,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
                     },
                   ),
                   back: CardBack(
+                    creditCard: widget.creditCard,
                     cvvFocus: cvvFocus,
                   ),
               ),
